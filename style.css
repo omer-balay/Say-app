@@ -14,22 +14,24 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html {
+    overscroll-behavior-y: none;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
-    background-image: url('bg.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     color: var(--text-primary);
+    height: 100dvh;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    overscroll-behavior-y: none;
 }
 
-/* Glassmorphism overlay for background */
+/* Glassmorphism overlay for background - hidden in light mode */
 body::before {
     content: '';
     position: absolute;
@@ -40,6 +42,12 @@ body::before {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
     backdrop-filter: blur(10px);
     z-index: -1;
+    transition: opacity 0.3s;
+}
+
+body.light-mode::before {
+    background: none;
+    backdrop-filter: none;
 }
 
 .app-container {
@@ -54,6 +62,13 @@ body::before {
     flex-direction: column;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    transition: background 0.3s;
+}
+
+body.light-mode .app-container {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
 }
 
 .views-wrapper {
@@ -102,6 +117,9 @@ body::before {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
     animation: fadeIn 0.4s ease;
 }
 
@@ -568,6 +586,42 @@ body::before {
     color: var(--text-secondary);
 }
 
+/* ── Pomodoro Oturum Adı Girişi ── */
+#pomodoro-view > div:first-child {
+    /* Input kapsayıcısı ile preset butonları arasına boşluk */
+    margin-bottom: 14px;
+}
+
+#pm-session-name {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--neon-green);
+    font-size: 13px;
+    flex: 1;
+    font-family: inherit;
+    caret-color: var(--neon-green);
+    transition: color 0.2s;
+}
+
+#pm-session-name::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+#pm-session-name:focus {
+    color: var(--neon-green);
+}
+
+/* Tarayıcı autofill renk bozulmasını engelle */
+#pm-session-name:-webkit-autofill,
+#pm-session-name:-webkit-autofill:hover,
+#pm-session-name:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--neon-green) !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.9) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--neon-green);
+}
+
 /* Pomodoro Presets */
 .pomodoro-presets {
     display: flex;
@@ -1019,6 +1073,13 @@ input:checked+.slider:before {
     border: 1px solid rgba(57, 255, 20, 0.15);
     border-radius: 14px;
     padding: 14px 18px;
+    transition: all 0.2s;
+}
+
+.worklog-card.active {
+    background: rgba(57, 255, 20, 0.15);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
 }
 
 .worklog-card-icon {
@@ -1039,39 +1100,7 @@ input:checked+.slider:before {
     text-shadow: 0 0 8px var(--neon-green-glow);
 }
 
-.worklog-list-header {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
 
-.worklog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.worklog-day-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
-    padding: 10px 14px;
-    border-left: 3px solid rgba(57, 255, 20, 0.3);
-}
-
-.worklog-day-label {
-    font-size: 13px;
-    color: var(--text-secondary);
-}
-
-.worklog-day-val {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    color: var(--neon-green);
-}
 
 /* Habit */
 .habit-add {
@@ -1473,9 +1502,6 @@ input:checked+.slider:before {
     width: 100%;
     height: 100%;
     background-color: var(--bg-color);
-    background-image: url('bg.png');
-    background-size: cover;
-    background-position: center;
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -1714,9 +1740,6 @@ input:checked+.slider:before {
     width: 100%;
     height: 100%;
     background-color: var(--bg-color);
-    background-image: url('bg.png');
-    background-size: cover;
-    background-position: center;
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -1875,7 +1898,31 @@ input:checked+.slider:before {
     }
 }
 
-/* Weekly bar chart */
+
+
+/* ===================== HAMBURGER & LEFT SIDEBAR ===================== */
+.hamburger-btn {
+    background: none;
+    border: none;
+    color: var(--neon-green);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+/* Graphical Chart Windows (Week/Month) */
+.wl-chart-window {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(57, 255, 20, 0.15);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
 .wl-week-chart {
     display: flex;
     flex-direction: column;
@@ -1888,6 +1935,7 @@ input:checked+.slider:before {
     grid-template-columns: 56px 1fr 64px;
     align-items: center;
     gap: 10px;
+    padding: 4px 0;
 }
 
 .wl-day-name {
@@ -1900,7 +1948,7 @@ input:checked+.slider:before {
 .wl-bar-wrap {
     background: rgba(255, 255, 255, 0.07);
     border-radius: 6px;
-    height: 10px;
+    height: 12px;
     overflow: hidden;
 }
 
@@ -1918,19 +1966,7 @@ input:checked+.slider:before {
     color: var(--neon-green);
     text-align: right;
     font-family: 'Orbitron', sans-serif;
-}
-
-/* Clickable Worklog Cards */
-.worklog-card.week-card,
-.worklog-card.month-card {
-    cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.worklog-card.week-card:hover,
-.worklog-card.month-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(57, 255, 20, 0.4);
+    font-weight: 600;
 }
 
 /* Monthly chart */
@@ -1947,13 +1983,14 @@ input:checked+.slider:before {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 6px 8px;
     border-radius: 8px;
     transition: background 0.15s;
 }
 
-.wl-month-row:hover {
+.wl-month-row:hover, .wl-day-bar:hover {
     background: rgba(57, 255, 20, 0.07);
+    border-radius: 8px;
 }
 
 .wl-month-row.selected {
@@ -1966,63 +2003,29 @@ input:checked+.slider:before {
     font-weight: 600;
 }
 
-.wl-month-detail {
-    margin-top: 12px;
-    padding: 12px;
+.wl-detail-box {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    padding: 10px 14px;
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    border: 1px solid rgba(57, 255, 20, 0.15);
+    border-radius: 10px;
+    border: 1px solid rgba(57, 255, 20, 0.1);
     animation: fadeIn 0.25s ease;
 }
 
-.wl-month-detail-title {
-    font-size: 13px;
-    color: var(--neon-green);
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.wl-month-days {
+.wl-detail-row {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.wl-month-days::-webkit-scrollbar {
-    width: 3px;
-}
-
-.wl-month-days::-webkit-scrollbar-thumb {
-    background: rgba(57, 255, 20, 0.2);
-    border-radius: 4px;
-}
-
-.wl-month-day-row {
-    display: grid;
-    grid-template-columns: 60px 1fr 64px;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-}
-
-.wl-month-day-name {
+    justify-content: space-between;
+    font-size: 11px;
     color: var(--text-secondary);
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-
-/* ===================== HAMBURGER & LEFT SIDEBAR ===================== */
-.hamburger-btn {
-    background: none;
-    border: none;
-    color: var(--neon-green);
-    font-size: 22px;
-    cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 8px;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
+.wl-detail-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .hamburger-btn:hover {
@@ -2791,22 +2794,46 @@ input:checked+.slider:before {
     user-select: none;
 }
 
-.quran-ayah-cell.status-1 {
-    background: #27c93f !important;
+/* === HADİS EZBERLEMEYİ DURUM RENKLERİ === */
+.quran-ayah-cell.status-ezberlendi {
+    background: #00e64d !important;
     color: #000 !important;
-    border-color: #27c93f !important;
+    border-color: #00e64d !important;
+    box-shadow: 0 0 8px rgba(0, 230, 77, 0.5);
+    font-weight: 700;
 }
 
-.quran-ayah-cell.status-2 {
-    background: orange;
-    color: black;
-    border-color: orange;
+.quran-ayah-cell.status-tekrar {
+    background: #f5a623 !important;
+    color: #000 !important;
+    border-color: #f5a623 !important;
+    box-shadow: 0 0 8px rgba(245, 166, 35, 0.4);
+    font-weight: 700;
 }
 
-.quran-ayah-cell.status-3 {
-    background: #ff3333;
-    color: white;
-    border-color: #ff3333;
+.quran-ayah-cell.status-az {
+    background: #ff3333 !important;
+    color: #fff !important;
+    border-color: #ff3333 !important;
+    box-shadow: 0 0 8px rgba(255, 51, 51, 0.4);
+    font-weight: 700;
+}
+
+/* Geriye dönük uyumluluk (eski status-1) */
+.quran-ayah-cell.status-1 {
+    background: #00e64d !important;
+    color: #000 !important;
+    border-color: #00e64d !important;
+}
+
+/* Custom fixed styling for "Tam" and "Tamam" memorization statuses to keep them always green */
+.ezber-tam-yazisi {
+    color: #27c93f !important;
+    font-weight: 600 !important;
+}
+
+.ezber-tam-yazisi i {
+    color: #27c93f !important;
 }
 
 /* Settings Color & BG Swatches */
@@ -2938,9 +2965,9 @@ input:checked+.slider:before {
 
 /* Light Mode Overrides */
 body.light-mode {
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    background-color: var(--bg-color);
+    --text-primary: #2c3e50;
+    --text-secondary: #596a7b;
+    background-color: #f0f2f5 !important;
 }
 
 body.light-mode .view {
@@ -2953,9 +2980,9 @@ body.light-mode .streak-card,
 body.light-mode .worklog-card,
 body.light-mode .settings-card,
 body.light-mode .home-shortcut {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
 body.light-mode .bottom-nav {
@@ -2996,14 +3023,13 @@ body.light-mode .quran-ayah-cell {
 }
 
 body.light-mode .riyazu-hadith-cell.read,
-body.light-mode .quran-ayah-cell.status-1,
-body.light-mode .quran-ayah-cell.status-2,
-body.light-mode .quran-ayah-cell.status-3 {
+body.light-mode .quran-ayah-cell.status-az {
     color: #fff;
 }
 
-body.light-mode .quran-ayah-cell.status-1,
-body.light-mode .quran-ayah-cell.status-2 {
+body.light-mode .quran-ayah-cell.status-ezberlendi,
+body.light-mode .quran-ayah-cell.status-tekrar,
+body.light-mode .quran-ayah-cell.status-1 {
     color: #000;
 }
 
@@ -3112,23 +3138,191 @@ body.light-mode .nav-sidebar-item:hover {
 }
 
 .say-watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60%;
-    aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    background-image: url('logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 0;
+    display: none;
 }
 
 .bg-swatch {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Mobil cihazlarda ve webview'lerde tıklanan/dokunulan giriş alanlarına programatik olarak odaklanarak klavyeyi tetikle */
+input, textarea, select, [contenteditable="true"], [contenteditable="true"] * {
+    pointer-events: auto !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+/* Verse Card Light Mode Overrides */
+body.light-mode .verse-card {
+    background: linear-gradient(145deg, rgba(57, 255, 20, 0.1), #ffffff);
+    border-color: rgba(57, 255, 20, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+body.light-mode .verse-arabic {
+    color: #1a252f;
+    text-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+}
+body.light-mode .verse-turkish {
+    color: var(--text-primary);
+}
+body.light-mode .verse-ref {
+    color: var(--text-secondary);
+}
+
+/* Welcome Modal Styling */
+#welcome-popup-modal {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.welcome-modal-content {
+    max-width: 450px;
+    width: 92%;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.98), rgba(10, 30, 10, 0.98));
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 25px var(--neon-green-glow);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-modal-radial-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--neon-green-glow) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+#welcome-popup-modal h2 {
+    color: var(--neon-green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--neon-green-glow);
+    font-weight: 700;
+}
+
+#welcome-popup-modal .verse-arabic {
+    font-size: 28px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    direction: rtl;
+    text-align: center;
+}
+
+#welcome-popup-modal .verse-turkish {
+    font-size: 15px;
+    margin-bottom: 12px;
+    font-family: 'Amiri', serif;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+#welcome-popup-modal .verse-ref {
+    font-size: 11px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#welcome-popup-modal .btn-primary {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Welcome Modal Light Mode Overrides */
+body.light-mode .welcome-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 250, 240, 0.98)) !important;
+    border-color: rgba(57, 255, 20, 0.4) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+body.light-mode #welcome-popup-modal h2,
+body.light-mode #hadith-detail-modal h2 {
+    color: #2e7d32 !important;
+    text-shadow: none !important;
+}
+
+body.light-mode #welcome-popup-modal .verse-arabic,
+body.light-mode #hadith-detail-modal .verse-arabic {
+    color: #1a252f !important;
+    text-shadow: none !important;
+}
+
+body.light-mode #welcome-popup-modal .verse-turkish,
+body.light-mode #hadith-detail-modal .verse-turkish {
+    color: var(--text-primary) !important;
+}
+
+body.light-mode #welcome-popup-modal .verse-ref,
+body.light-mode #hadith-detail-modal .verse-ref {
+    color: var(--text-secondary) !important;
+}
+
+/* Hadith Detail Modal specific z-index override */
+#hadith-detail-modal {
+    z-index: 150 !important;
+}
+
+/* ── Hadis Detay Modalı: Kaydırılabilir Metin Bölgesi ── */
+/* Sadece bu modala özel — küresel scroll kurallarına dokunmaz */
+#hadith-detail-modal .modal-content.welcome-modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 88vh;
+    overflow: hidden;
+}
+
+.hadith-scroll-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 24px 24px 16px;
+    /* Kaydırma çubuğu: neon temasıyla uyumlu ince stil */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 230, 77, 0.3) transparent;
+}
+
+/* WebKit (Chrome / Safari / Edge) için özel scrollbar */
+.hadith-scroll-body::-webkit-scrollbar {
+    width: 4px;
+}
+.hadith-scroll-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.hadith-scroll-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 230, 77, 0.35);
+    border-radius: 4px;
+}
+.hadith-scroll-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 230, 77, 0.6);
+}
+
+/* Hadith Status Buttons active states */
+.hadith-status-btn.active[data-status="az"] {
+    background: #ff3333 !important;
+    border-color: #ff3333 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255,51,51,0.5);
+}
+.hadith-status-btn.active[data-status="tekrar"] {
+    background: orange !important;
+    border-color: orange !important;
+    color: #000000 !important;
+    box-shadow: 0 0 10px rgba(255,165,0,0.5);
+}
+.hadith-status-btn.active[data-status="ezberlendi"] {
+    background: #27c93f !important;
+    border-color: #27c93f !important;
+    color: #000000 !important;
+    box-shadow: 0 0 10px rgba(39,201,63,0.5);
 }

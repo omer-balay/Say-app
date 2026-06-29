@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sa'y - سعي</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=20260520-5">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -36,16 +36,15 @@
         </div>
         <div class="nav-sidebar-list">
             <button class="nav-sidebar-item active" data-target="home-view"><i class="fas fa-home"></i><span>Ana Ekran</span></button>
-            <button class="nav-sidebar-item" data-target="stopwatch-view"><i class="fas fa-stopwatch"></i><span>Kronometre</span></button>
-            <button class="nav-sidebar-item" data-target="timer-view"><i class="fas fa-hourglass-half"></i><span>Geri Sayım</span></button>
-            <button class="nav-sidebar-item" data-target="pomodoro-view"><i class="fas fa-apple-alt"></i><span>Pomodoro Odaklanma</span></button>
-            <button class="nav-sidebar-item" data-target="worklog-view"><i class="fas fa-chart-bar"></i><span>Çalışma Sürelerim</span></button>
-            <button class="nav-sidebar-item" data-target="habit-view"><i class="fas fa-check-circle"></i><span>Alışkanlık Takibi</span></button>
-            <button class="nav-sidebar-item" data-target="streak-view"><i class="fas fa-fire"></i><span>Zinciri Kırma</span></button>
-            <button class="nav-sidebar-item" data-target="quran-view"><i class="fas fa-star-and-crescent"></i><span>Kur'an ve Sünnet</span></button>
-            <button class="nav-sidebar-item" data-target="memorize-view"><i class="fas fa-brain"></i><span>Ezber ve Takibi</span></button>
             <button class="nav-sidebar-item" data-target="agenda-view"><i class="fas fa-calendar-alt"></i><span>Ajanda ve Görevler</span></button>
-            <button class="nav-sidebar-item" data-target="leaderboard-view"><i class="fas fa-trophy"></i><span>Sıralama (Kıyas)</span></button>
+            <button class="nav-sidebar-item" data-target="habit-view"><i class="fas fa-check-circle"></i><span>Alışkanlık Takibi</span></button>
+            <button class="nav-sidebar-item" data-target="worklog-view"><i class="fas fa-chart-bar"></i><span>Çalışma Sürelerim</span></button>
+            <button class="nav-sidebar-item" data-target="memorize-view"><i class="fas fa-brain"></i><span>Ezber ve Takibi</span></button>
+            <button class="nav-sidebar-item" data-target="timer-view"><i class="fas fa-hourglass-half"></i><span>Geri Sayım</span></button>
+            <button class="nav-sidebar-item" data-target="stopwatch-view"><i class="fas fa-stopwatch"></i><span>Kronometre</span></button>
+            <button class="nav-sidebar-item" data-target="quran-view"><i class="fas fa-star-and-crescent"></i><span>Kur'an ve Sünnet</span></button>
+            <button class="nav-sidebar-item" data-target="pomodoro-view"><i class="fas fa-apple-alt"></i><span>Pomodoro Odaklanma</span></button>
+            <button class="nav-sidebar-item" data-target="streak-view"><i class="fas fa-fire"></i><span>Zinciri Kırma</span></button>
             <button class="nav-sidebar-item" data-target="settings-view"><i class="fas fa-cog"></i><span>Ayarlar</span></button>
         </div>
     </div>
@@ -96,17 +95,24 @@
             <div class="verse-ref">— Necm Suresi, 39. Ayet</div>
         </div>
         <div class="home-shortcuts">
-            <button class="home-shortcut" data-target="worklog-view"><i class="fas fa-chart-bar"></i><span>Çalışma</span></button>
-            <button class="home-shortcut" data-target="habit-view"><i class="fas fa-check-circle"></i><span>Alışkanlık</span></button>
-            <button class="home-shortcut" data-target="quran-view"><i class="fas fa-star-and-crescent"></i><span>Kur'an</span></button>
             <button class="home-shortcut" data-target="agenda-view"><i class="fas fa-calendar-alt"></i><span>Ajanda</span></button>
-            <button class="home-shortcut" data-target="streak-view"><i class="fas fa-fire"></i><span>Zincir</span></button>
+            <button class="home-shortcut" data-target="habit-view"><i class="fas fa-check-circle"></i><span>Alışkanlık</span></button>
+            <button class="home-shortcut" data-target="worklog-view"><i class="fas fa-chart-bar"></i><span>Çalışma</span></button>
             <button class="home-shortcut" data-target="memorize-view"><i class="fas fa-brain"></i><span>Ezber</span></button>
+            <button class="home-shortcut" data-target="quran-view"><i class="fas fa-star-and-crescent"></i><span>Kur'an</span></button>
+            <button class="home-shortcut" data-target="streak-view"><i class="fas fa-fire"></i><span>Zincir</span></button>
         </div>
     </div>
 
     <!-- Stopwatch View -->
     <div id="stopwatch-view" class="view">
+        <!-- Session name input -->
+        <div style="padding:10px 16px 0;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 12px;">
+                <i class="fas fa-tag" style="color:var(--neon-green);font-size:13px;"></i>
+                <input type="text" id="sw-session-name" placeholder="Ne çalışıyorsun? (Ör: Matematik, Kitap)" maxlength="50" style="background:none;border:none;outline:none;color:var(--text-primary);font-size:13px;flex:1;font-family:inherit;">
+            </div>
+        </div>
         <div class="display-container">
             <div class="glow-ring" id="sw-ring"></div>
             <div class="time-display" id="stopwatch-display">00:00:00<span class="milliseconds">.00</span></div>
@@ -121,6 +127,14 @@
 
     <!-- Timer View -->
     <div id="timer-view" class="view">
+        <!-- Session name input -->
+        <div style="padding:10px 16px 0; margin-bottom: 20px;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 12px;">
+                <i class="fas fa-tag" style="color:var(--neon-green);font-size:13px;"></i>
+                <input type="text" id="tm-session-name" placeholder="Ne çalışıyorsun? (Ör: Soru Çözümü)" maxlength="50" style="background:none;border:none;outline:none;color:var(--text-primary);font-size:13px;flex:1;font-family:inherit;">
+            </div>
+        </div>
+
         <div class="display-container">
             <div class="glow-ring timer-ring" id="tm-ring"></div>
             <div id="timer-input-mode" class="time-inputs">
@@ -150,6 +164,13 @@
 
     <!-- Pomodoro View -->
     <div id="pomodoro-view" class="view">
+        <!-- Session name input -->
+        <div style="padding:10px 16px 0;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(0,255,0,0.2);border-radius:10px;padding:8px 12px;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(0,255,0,0.5)'" onblur="this.style.borderColor='rgba(0,255,0,0.2)'">
+                <i class="fas fa-tag" style="color:var(--neon-green);font-size:13px;"></i>
+                <input type="text" id="pm-session-name" placeholder="Ne üzerine odaklanıyorsun? (Ör: Proje, Ders)" maxlength="50">
+            </div>
+        </div>
         <div class="pomodoro-presets">
             <button class="preset-btn" data-time="10">10</button>
             <button class="preset-btn" data-time="15">15</button>
@@ -180,39 +201,27 @@
     <!-- Worklog View -->
     <div id="worklog-view" class="view">
         <div class="section-header"><i class="fas fa-chart-bar"></i><h2>Çalışma Sürelerim</h2></div>
-        <div class="worklog-summary">
-            <div class="worklog-card today-card">
+        
+        <!-- Tabs (Using existing cards as tabs) -->
+        <div class="worklog-summary" id="wl-tabs" style="margin-bottom: 20px;">
+            <div class="worklog-card today-card active" data-tab="today" style="cursor:pointer;">
                 <div class="worklog-card-icon"><i class="fas fa-sun"></i></div>
                 <div class="worklog-card-info"><span class="worklog-label">Bugün</span><span class="worklog-value" id="wl-today">0dk</span></div>
             </div>
-            <div class="worklog-card week-card">
+            <div class="worklog-card week-card" data-tab="week" style="cursor:pointer;">
                 <div class="worklog-card-icon"><i class="fas fa-calendar-week"></i></div>
-                <div class="worklog-card-info"><span class="worklog-label">Bu Hafta (toplam)</span><span class="worklog-value" id="wl-week">0dk</span></div>
+                <div class="worklog-card-info"><span class="worklog-label">Haftalık</span><span class="worklog-value" id="wl-week">0dk</span></div>
             </div>
-            <div class="worklog-card month-card">
+            <div class="worklog-card month-card" data-tab="month" style="cursor:pointer;">
                 <div class="worklog-card-icon"><i class="fas fa-calendar-alt"></i></div>
                 <div class="worklog-card-info"><span class="worklog-label">Aylık</span><span class="worklog-value" id="wl-month">0dk</span></div>
             </div>
         </div>
+
+        <!-- Dynamic Content Container -->
+        <div id="wl-tab-content"></div>
     </div>
 
-    <!-- Worklog Modals -->
-    <div id="wl-week-modal" class="modal">
-        <div class="modal-content" style="max-width:400px;width:90%">
-            <h2 style="font-size:18px;margin-bottom:15px;text-align:center;">Bu Haftanın Dağılımı</h2>
-            <div class="wl-week-chart" id="wl-week-detail" style="margin-bottom:20px;"></div>
-            <div class="worklog-list" id="worklog-week-list"></div>
-            <button class="btn btn-primary" style="margin-top:20px;width:100%" onclick="document.getElementById('wl-week-modal').classList.remove('active')">Kapat</button>
-        </div>
-    </div>
-    <div id="wl-month-modal" class="modal">
-        <div class="modal-content" style="max-width:420px;width:92%;max-height:88vh;overflow-y:auto;">
-            <h2 style="font-size:18px;margin-bottom:15px;text-align:center;">Aylık Çalışma Takibi</h2>
-            <div id="worklog-month-12" class="wl-month-chart"></div>
-            <div id="worklog-month-detail"></div>
-            <button class="btn btn-primary" style="margin-top:20px;width:100%" onclick="document.getElementById('wl-month-modal').classList.remove('active')">Kapat</button>
-        </div>
-    </div>
 
     <!-- Habit View -->
     <div id="habit-view" class="view">
@@ -459,10 +468,10 @@
                 <button onclick="closeAyahGridModal()" style="background:none;border:none;color:var(--text-secondary);font-size:20px;cursor:pointer;"><i class="fas fa-times"></i></button>
             </div>
             <div style="font-size:12px;color:var(--text-secondary);margin-bottom:15px;display:flex;justify-content:space-between;">
-                <span><i class="fas fa-square" style="color:var(--neon-green);"></i> Tam</span>
-                <span><i class="fas fa-square" style="color:orange;"></i> Tekrar</span>
-                <span><i class="fas fa-square" style="color:#ff3333;"></i> Az</span>
-                <span><i class="fas fa-square" style="color:rgba(255,255,255,0.1);"></i> Boş</span>
+                <span style="color:#00e64d;"><i class="fas fa-square"></i> Ezberlendi</span>
+                <span style="color:#f5a623;"><i class="fas fa-square"></i> Tekrar</span>
+                <span style="color:#ff3333;"><i class="fas fa-square"></i> Az</span>
+                <span style="color:rgba(255,255,255,0.15);"><i class="fas fa-square"></i> Boş</span>
             </div>
             <div id="quran-ayah-grid" class="hatim-page-grid" style="grid-template-columns:repeat(auto-fill,minmax(40px,1fr));"></div>
         </div>
@@ -487,7 +496,7 @@
         <div class="modal-content" style="max-width:400px;width:95%;max-height:85vh;overflow-y:auto;text-align:center;">
             <h2 style="font-size:18px;margin-bottom:15px;"><i class="fas fa-quote-right"></i> 100 Hadis</h2>
             <div class="riyazu-legend" style="display:flex;justify-content:center;gap:15px;margin-bottom:15px;font-size:11px;">
-                <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:var(--neon-green);border-radius:3px;"></div> Tamam</div>
+                <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:#27c93f;border-radius:3px;"></div> <span class="ezber-tam-yazisi">Tamam</span></div>
                 <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:orange;border-radius:3px;"></div> Tekrar</div>
                 <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:#ff3333;border-radius:3px;"></div> Eksik</div>
             </div>
@@ -541,9 +550,16 @@
             </div>
             <div class="notebook-section">
                 <div class="notebook-section-title"><i class="fas fa-tasks"></i> Görevler</div>
-                <div class="agenda-task-add">
-                    <input type="text" id="agenda-task-input" placeholder="Yeni görev ekle..." class="agenda-task-field">
-                    <button id="agenda-task-add-btn" class="btn btn-primary btn-small"><i class="fas fa-plus"></i></button>
+                <div class="agenda-task-add" style="flex-direction: column; gap: 8px; margin-bottom: 10px;">
+                    <div style="display: flex; gap: 8px; width: 100%;">
+                        <input type="text" id="agenda-task-input" placeholder="Yeni görev ekle..." class="agenda-task-field" style="flex: 1;">
+                        <button id="agenda-task-add-btn" class="btn btn-primary btn-small"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 4px;">
+                        <i class="fas fa-bell" style="color: var(--neon-green); font-size: 13px;"></i>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Hatırlatıcı:</span>
+                        <input type="datetime-local" id="agenda-task-reminder" class="agenda-task-field" style="padding: 4px 8px; font-size: 11px; flex: 1;">
+                    </div>
                 </div>
                 <div id="agenda-task-list" class="agenda-task-list"></div>
             </div>
@@ -551,54 +567,8 @@
         </div>
     </div>
 
-    <!-- Leaderboard View -->
-    <div id="leaderboard-view" class="view">
-        <div class="section-header"><i class="fas fa-trophy"></i><h2>Sıralama (Kıyas)</h2></div>
-        <p style="color:var(--text-secondary);font-size:13px;text-align:center;margin-bottom:20px;">Kendi odak süreni diğer kullanıcılarla kıyasla.</p>
-        
-        <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:15px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--neon-green);">
-            <div style="display:flex;align-items:center;gap:15px;">
-                <div style="font-size:24px;font-weight:bold;color:var(--neon-green);">4.</div>
-                <div>
-                    <div style="font-weight:bold;color:#fff;">Sen</div>
-                    <div style="font-size:12px;color:var(--text-secondary);">Bu Hafta Odaklanma</div>
-                </div>
-            </div>
-            <div style="font-size:18px;font-weight:bold;color:var(--neon-green);" id="lb-user-score">0s</div>
-        </div>
 
-        <div style="display:flex;flex-direction:column;gap:10px;" id="leaderboard-list">
-            <!-- Mock items -->
-            <div class="habit-card" style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <div style="font-weight:bold;color:gold;width:20px;">1.</div>
-                    <div>Ahmet Y.</div>
-                </div>
-                <div style="color:gold;font-weight:bold;">12s 45dk</div>
-            </div>
-            <div class="habit-card" style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <div style="font-weight:bold;color:silver;width:20px;">2.</div>
-                    <div>Furkan M.</div>
-                </div>
-                <div style="color:silver;font-weight:bold;">8s 20dk</div>
-            </div>
-            <div class="habit-card" style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <div style="font-weight:bold;color:#cd7f32;width:20px;">3.</div>
-                    <div>Mehmet K.</div>
-                </div>
-                <div style="color:#cd7f32;font-weight:bold;">5s 15dk</div>
-            </div>
-            <div class="habit-card" style="display:flex;justify-content:space-between;align-items:center;opacity:0.6;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <div style="font-weight:bold;color:var(--text-secondary);width:20px;">5.</div>
-                    <div>Yusuf E.</div>
-                </div>
-                <div style="color:var(--text-secondary);font-weight:bold;">1s 10dk</div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Settings View -->
     <div id="settings-view" class="view">
@@ -626,7 +596,6 @@
             <h3 style="font-size:15px; color:var(--text-secondary); margin-bottom:15px;">Arka Plan Modu</h3>
             <div id="bg-palette" style="display:flex; flex-wrap:wrap; gap:12px;">
                 <div class="bg-swatch active" data-bg="none" data-color="#0a0a0a" data-type="dark" style="background:#0a0a0a; border:2px solid rgba(255,255,255,0.3);"><span style="color:rgba(255,255,255,0.7);font-size:8px;">Siyah</span></div>
-                <div class="bg-swatch" data-bg="none" data-color="#0a192f" data-type="dark" style="background:#0a192f;"><span style="color:rgba(255,255,255,0.7);font-size:8px;">Lacivert</span></div>
                 <div class="bg-swatch" data-bg="none" data-color="#ffffff" data-type="light" style="background:#ffffff; border:2px solid #ccc;"><span style="color:rgba(0,0,0,0.6);font-size:8px;">Beyaz</span></div>
             </div>
         </div>
@@ -681,8 +650,51 @@
         <div class="fs-hint">Temayı değiştirmek için dokunun</div>
     </div>
 
+    <!-- Welcome Modal -->
+    <div id="welcome-popup-modal" class="modal">
+        <div class="modal-content welcome-modal-content">
+            <div class="welcome-modal-radial-glow"></div>
+            <h2>Vira Bismillah</h2>
+            <div class="verse-arabic" id="welcome-quote-arabic"></div>
+            <div class="verse-turkish" id="welcome-quote-turkish"></div>
+            <div class="verse-ref" id="welcome-quote-ref"></div>
+            <button class="btn btn-primary" onclick="closeWelcomeModal()">VİRA BİSMİLLAH</button>
+        </div>
+    </div>
+
+    <!-- Hadith Detail Modal -->
+    <div id="hadith-detail-modal" class="modal">
+        <div class="modal-content welcome-modal-content" style="max-width: 480px; width: 92%; display:flex; flex-direction:column; max-height:88vh; overflow:hidden; padding:0;">
+            <div class="welcome-modal-radial-glow"></div>
+
+            <!-- KAYDIRILABİLİR BÖLGE: Başlık + Metinler -->
+            <div class="hadith-scroll-body">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+                    <h2 id="hadith-detail-title" style="margin:0; font-family:'Orbitron', sans-serif; font-size:16px; color:var(--neon-green); letter-spacing:2px;">HADİS DETAYI</h2>
+                    <button onclick="closeHadithDetailModal()" style="background:none; border:none; color:var(--text-secondary); font-size:20px; cursor:pointer;"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="verse-arabic" id="hadith-detail-arabic" style="font-size:26px; line-height:1.6; margin-bottom:18px; direction:rtl; text-align:center;"></div>
+                <div class="verse-turkish" id="hadith-detail-turkish" style="font-size:15px; margin-bottom:12px; font-family:'Amiri', serif; font-style:italic; line-height:1.6;"></div>
+                <div class="verse-ref" id="hadith-detail-source" style="font-size:11px; color:var(--text-secondary);"></div>
+            </div>
+
+            <!-- SABİT BÖLGE: Butonlar -->
+            <div style="padding:16px 24px 20px; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px; flex-shrink:0;">
+                <div style="display:flex; gap:8px;">
+                    <button id="hadith-btn-az" class="hadith-status-btn" data-status="az" style="flex:1; padding:12px 6px; border-radius:10px; font-weight:600; font-size:12px; cursor:pointer; border:1px solid rgba(255,51,51,0.3); background:rgba(255,51,51,0.1); color:#ff5555; transition: all 0.2s;">🔴 Az</button>
+                    <button id="hadith-btn-tekrar" class="hadith-status-btn" data-status="tekrar" style="flex:1; padding:12px 6px; border-radius:10px; font-weight:600; font-size:12px; cursor:pointer; border:1px solid rgba(255,165,0,0.3); background:rgba(255,165,0,0.1); color:#ffa500; transition: all 0.2s;">🟡 Tekrar</button>
+                    <button id="hadith-btn-ezberlendi" class="hadith-status-btn" data-status="ezberlendi" style="flex:1; padding:12px 6px; border-radius:10px; font-weight:600; font-size:12px; cursor:pointer; border:1px solid rgba(39,201,63,0.3); background:rgba(39,201,63,0.1); color:#27c93f; transition: all 0.2s;">🟢 Ezberledim</button>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button id="hadith-btn-clear" style="flex:1; padding:12px; border-radius:10px; font-weight:600; font-size:13px; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:var(--text-secondary); transition: all 0.2s;">❌ Seçimi Kaldır</button>
+                    <button class="btn btn-secondary" onclick="closeHadithDetailModal()" style="padding:12px 20px; border-radius:10px; font-weight:600; font-size:13px;">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div><!-- end app-container -->
 
-<script src="app.js?v=3"></script>
+    <script src="app.js?v=20260520-5"></script>
 </body>
 </html>
